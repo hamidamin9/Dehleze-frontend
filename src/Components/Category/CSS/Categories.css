@@ -1,0 +1,115 @@
+.slick-slider {
+  width: 90% !important;
+  max-width: unset !important;
+  margin: auto !important;
+}
+
+
+
+.slide-category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center contents horizontally */
+  justify-content: center;
+  /* Center contents vertically */
+  padding: 10px;
+  text-align: center !important;
+  max-width: 150px;
+  /* Ensures consistent card width */
+  margin: 0 auto;
+  /* Centers the card */
+  cursor: pointer;
+  /* border-radius: 10px; */
+}
+
+.slide-category-image {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  border: 2px solid #ff8000;
+  /* padding: 5px; */
+  object-fit: contain;
+  margin-bottom: 10px;
+  mix-blend-mode: multiply;
+}
+
+.slide-category-link {
+  text-decoration: none;
+}
+
+.slide-category-name {
+  font-size: 14px;
+  /* Adjust for readability */
+  color: #333;
+  /* Neutral color for text */
+  margin: 0;
+  /* Removes extra margin */
+  text-align: center;
+  /* Centers the text */
+  cursor: pointer;
+}
+
+.slide-category-name:hover {
+  color: #ff8000;
+}
+
+
+
+@media (max-width: 1024px) {
+  .slide-category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center contents horizontally */
+    justify-content: center;
+    /* Center contents vertically */
+    padding: 10px;
+    text-align: center;
+    max-width: 150px;
+    /* Ensures consistent card width */
+    margin: 0 auto;
+    /* Centers the card */
+    cursor: pointer;
+  }
+
+  .slide-category-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    border: none;
+  }
+
+  .slide-category-name {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .slide-category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center contents horizontally */
+    justify-content: center;
+    /* Center contents vertically */
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+    /* Centers the card */
+    cursor: pointer;
+  }
+
+  .slide-category-image {
+    width: 100%;
+    height: 150px;
+  }
+
+  .slide-category-name {
+    font-size: 11px;
+  }
+}
+
+.slick-list {
+  text-align: center !important;
+}

@@ -1,0 +1,238 @@
+.selectPaymentcontainer {
+    width: 90%;
+    margin: auto;
+}
+
+.selectPaymentPage {
+    padding-top: 4rem;
+
+}
+
+.selectPaymentPageFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: white;
+    width: 100%;
+    gap: 1rem;
+}
+
+.selecctPaymentFlexContent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    width: 50%;
+}
+
+.selectPaymentFlexContent2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.selectPaymentFlexContent2>h1 {
+    font-size: 44.51px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.selectPaymentFlexContent2Content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.selectPaymentFlexContent2Top {
+    padding-bottom: 8.7rem;
+}
+
+.selectPaymentFlexContent2TopUpperContent>p {
+    font-size: 22.49px;
+    font-weight: 400;
+    color: rgba(146, 146, 146, 1);
+    line-height: 50.85px;
+}
+
+.selectPaymentFlexContent2TopBelowContent>p {
+    font-size: 22.49px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 1);
+    line-height: 50.85px;
+}
+
+.selectPaymentFlexContent2Content1>p {
+    font-size: 33.49px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 1);
+    line-height: 50.85px;
+    font-weight: 500;
+}
+
+.selectPaymentFlexContent2TopContent2>p {
+    font-size: 21.37px;
+    font-weight: 400;
+    text-align: right;
+    color: rgba(146, 146, 146, 1);
+}
+
+.selectPaymentFlexContent2TopContent2>h1 {
+    font-size: 35.53px;
+    font-weight: 700;
+    color: rgba(255, 152, 0, 1);
+    margin: 0;
+    display: flex;
+    justify-content: right;
+}
+
+.ybox {
+    height: 208.312607px;
+    width: 208.312607px;
+    background-color: rgba(240, 238, 238, 1);
+    padding: 2rem;
+    display: flex;
+    /* gap: 2rem; */
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.selectPaymentFlexContent2 {
+    background-color: rgba(240, 238, 238, 1);
+    padding: 2rem;
+}
+
+.selectPaymentMobileView {
+    display: none;
+}
+
+.selectPaymentMobileView>h3 {
+    text-align: left;
+    font-size: 1rem;
+    padding-bottom: 2rem;
+    font-weight: 700;
+}
+
+.selectPaymentMobileViewCreditCardPayment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+.selectPaymentMobileViewCreditCardPaymentContent1 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.selectPaymentMobileViewCreditCardPaymentContent1>div>h3 {
+    font-size: 13.22px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.selectPaymentMobileViewCreditCardPaymentContent1>div>span {
+    font-size: 0.8rem;
+    color: rgba(232, 232, 232, 1);
+}
+
+.selectPaymentMobileViewCreditCardPaymentContent1>img {
+    width: 44.88166809082031px;
+}
+
+.selectPaymentMobileViewCreditCardPaymentContent2 {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.selectPaymentMobileViewCreditCardPaymentContent2>img {
+    width: 40.116008758544922px;
+    object-fit: contain;
+    aspect-ratio: 3 / 2;
+}
+
+#yarrow {
+    width: 10px;
+    aspect-ratio: unset;
+}
+
+
+.yPaymentFlexMiddle {
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(232, 232, 232, 1);
+}
+
+.yPaymentFlexheading {
+    display: flex;
+    flex-direction: column;
+}
+
+.yPaymentFlexheading {
+    padding-top: 3rem;
+}
+
+/* .selectPaymentMobileViewCreditCardPayment.yPaymentFlexMiddleContent {
+    width: 90%;
+    margin: auto;
+} */
+
+.selectPaymentTotals {
+    padding-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.selectPaymentTotalsContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.selectPaymentTotalsContent>h3 {
+    font-size: 18.7px;
+    font-weight: 700;
+}
+
+.selectPaymentTotalsContent>h1 {
+    font-size: 28.05px;
+    font-weight: 700;
+    color: rgba(255, 152, 0, 1);
+}
+
+@media (max-width:1255px) {
+    .selectPaymentPageFlex {
+        flex-direction: column;
+    }
+
+    .selecctPaymentFlexContent {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .selectPaymentFlexContent2 {
+        width: 100%;
+    }
+}
+
+@media (max-width:500px) {
+    .selectPaymentPageFlex {
+        display: none;
+    }
+
+    .selectPaymentMobileView {
+        display: block;
+    }
+
+    .selectPaymentFooter {
+        display: none;
+    }
+}

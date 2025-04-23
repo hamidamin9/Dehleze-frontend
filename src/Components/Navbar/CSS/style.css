@@ -1,0 +1,25 @@
+.dropdown-menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 40px; /* Adjust based on button's height */
+    left: 60rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    list-style: none;
+    z-index: 1000;
+  }
+  
+  .dropdown-menu.show {
+    display: block; /* Show the dropdown when the 'show' class is added */
+  }
+  
+  .dropdown-menu li {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+  }
+  

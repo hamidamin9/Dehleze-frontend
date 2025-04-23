@@ -1,0 +1,266 @@
+.h-header {
+  display: flex;
+  padding: 20px 40px;
+  background-color: #f2f2f2;
+  z-index: 10;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+/* Left side container for the burger menu */
+.h-header-left {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+/* Desktop menu remains centered */
+.desktop-menu {
+  display: flex;
+  flex: 2;
+  justify-content: space-between;
+  /* Adjust the size to take more space */
+  gap: 20px;
+  align-items: center;
+}
+
+.yNavFlex {
+  display: flex;
+  gap: 4rem;
+}
+
+.yNavFlex>a {
+  font-size: 1.04rem;
+  color: #000 !important;
+}
+
+/* Burger menu styles */
+.burger-menu {
+  display: none;
+  /* Hidden by default on desktop */
+
+}
+
+/* Dropdown category styles */
+.h-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.h-dropdown {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px #0000001a;
+  list-style: none;
+  padding: 10px;
+  top: 100%;
+  position: absolute;
+  width: -webkit-max-content;
+  width: max-content;
+  z-index: 9999;
+  border-radius: 8px;
+}
+
+.slide-link {
+  color: #000;
+  text-decoration: none;
+}
+
+.h-dropdown li {
+  cursor: pointer;
+  padding: 5px 10px;
+  text-transform: uppercase;
+
+}
+
+.h-dropdown li:hover {
+  background-color: #ddd;
+
+
+}
+
+.h-category {
+  cursor: pointer;
+  display: block;
+  background-color: #ff9800;
+  padding: 10px;
+  z-index: 9999;
+  border-radius: 5px;
+}
+
+.cate-strong {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Header headings (Home, Shop, etc.) */
+.h-heading {
+  color: black;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: "Jost", serif;
+}
+
+.h-heading:hover {
+  color: #ff9800;
+}
+
+.h-heading:not(:first-child) {
+  margin-left: 20px;
+  /* Add spacing between headings */
+}
+
+/* Mobile menu styles */
+.mobile-menu {
+  display: none;
+  /* Hidden by default */
+  flex-direction: column;
+  background-color: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.mobile-menu .h-heading {
+  padding: 10px 0px;
+  color: black;
+  border-bottom: 1px solid #ddd;
+}
+
+.mobile-menu .h-heading:hover {
+  background-color: #f8f8f8;
+  color: #ff9800;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none;
+    /* Hide desktop menu on mobile */
+  }
+
+  .burger-menu {
+    margin-left: 10px;
+    display: block;
+    /* Show burger menu on mobile */
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    border-radius: 5px;
+  }
+
+  .burger-menu .burger-icon-setting {
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+    background-color: #ff9800;
+    padding: 10px;
+
+    border-radius: 5px;
+  }
+
+  .mobile-menu {
+    display: flex;
+    /* Show mobile menu when active */
+  }
+
+  .h-header {
+    flex-direction: column;
+    /* Stack header items vertically */
+    padding: 10px;
+  }
+
+  .h-header-left,
+  .h-header-right {
+    flex-direction: row;
+    /* Keep items in a row */
+    gap: 10px;
+    flex-wrap: wrap;
+    /* Allow wrapping */
+  }
+
+  .h-heading {
+    font-size: 14px;
+    /* Reduce font size for smaller screens */
+  }
+
+}
+
+.subcategory-box.sub-sub {
+  left: 106%;
+  top: 0;
+  margin-left: -10px; /* This pulls sub-sub closer to sub1 */
+  padding: 5px;
+}
+
+/* slider */
+.custom-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.slide {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.custom-slider::-webkit-scrollbar {
+  display: none;
+}
+
+
+.activeNavBarMenus {
+  border-bottom: 2px solid black;
+
+}
+
+.carousel {
+  margin-top: 2rem;
+}
+
+
+.subcategory-box {
+  position: absolute;
+  left: 100%; /* Position the subcategory box to the right of the main dropdown */
+  top: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px #0000001a;
+  padding: 10px;
+  width: 200px; /* Adjust width as needed */
+  z-index: 10000; /* Ensure it appears above other elements */
+  left: 257px;
+  border-radius: 8px;
+}
+
+.subcategory-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subcategory-box li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.subcategory-box li:hover {
+  background-color: #ddd;
+}

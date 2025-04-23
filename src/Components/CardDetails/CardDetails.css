@@ -1,0 +1,218 @@
+.cardDetailsPage {
+    background-color: rgba(240, 238, 238, 1);
+    margin-top: 4rem;
+    padding: 2rem 0;
+}
+
+.cardDetailsTop {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.cardDetailsTop>div {
+    width: 110px;
+}
+
+.cardDetailsTop>div>img {
+    width: 100%;
+    object-fit: contain;
+    aspect-ratio: 3/2;
+}
+
+.cardDetailsForm {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-top: 2rem;
+}
+
+.cardDetailsFormContent {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+.cardDetailsFormInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cardDetailsFormInputs>label {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.cardDetailsFormInputs>input {
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    padding: 0.85rem;
+    border-radius: 3px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.cardDetailsBtnSection {
+    padding: 2rem 0;
+}
+
+.checkbox-wrapper {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+}
+
+.checkbox-wrapper>p {
+    width: 650px;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 19.57px;
+    font-weight: 400;
+}
+
+/* Hide the default checkbox */
+.checkbox-wrapper input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Custom checkbox design */
+.custom-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #b0b0b0;
+    /* Default: Gray */
+    border-radius: 4px;
+    /* Optional: adds rounded corners */
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Change background on hover */
+.checkbox-wrapper:hover input~.custom-checkbox {
+    background-color: #999;
+    /* Darker gray on hover */
+}
+
+/* Change color when checked */
+.checkbox-wrapper input:checked~.custom-checkbox {
+    background-color: rgba(255, 152, 0, 1);
+    /* Orange when checked */
+}
+
+/* Checkmark (hidden by default) */
+.custom-checkbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show checkmark when checked */
+.checkbox-wrapper input:checked~.custom-checkbox:after {
+    display: block;
+}
+
+/* Checkmark style */
+.checkbox-wrapper .custom-checkbox:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+button.paynowBtn {
+    width: auto;
+    padding: 0.7rem 6rem;
+    background-color: rgba(255, 152, 0, 1);
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    border: none;
+    border-radius: 3px;
+}
+
+.cardDetailsPageMobileView {
+    margin-top: 3rem;
+    padding: 1.5rem 1.5rem 3rem 1.5rem;
+    border-radius: 9.33px;
+    box-shadow: 0px 0px 12.87px 9.33px rgba(0, 0, 0, 0.07);
+    display: none;
+}
+
+input.cardDetailMobileViewInputs {
+    border: none;
+    border-bottom: 0.93px solid rgba(232, 232, 232, 1);
+    padding: 0.7rem;
+    font-size: 17.99px;
+    font-weight: 400;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.cardDetailCardFlex>input {
+    border: none;
+    padding: 0.7rem;
+    font-size: 17.99px;
+    font-weight: 400;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.cardDetailCardFlex {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.93px solid rgba(232, 232, 232, 1);
+}
+
+.cardDetailCardImageFlex {
+    display: flex;
+    align-items: center;
+}
+
+.cardDetailCardImageFlex>img {
+    object-fit: contain;
+    aspect-ratio: 3/2;
+    width: 50px;
+}
+
+.cardDetailsPageMobileView>p {
+    font-size: 16.69px;
+    text-align: left;
+    padding: 2rem 0;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width:500px) {
+    button.paynowBtn {
+        width: 100%;
+        font-size: 20px;
+        display: block;
+        padding: 0.7rem 1rem;
+    }
+
+    .cardDetailsPage {
+        display: none;
+    }
+
+    .footer-top {
+        display: none;
+    }
+
+    .cardDetailsPageMobileView {
+        display: block;
+    }
+}

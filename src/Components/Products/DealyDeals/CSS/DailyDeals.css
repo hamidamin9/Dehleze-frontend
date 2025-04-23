@@ -1,0 +1,241 @@
+.product-item {
+    display: flex;
+    background-color: #fff;
+    overflow: hidden;
+    max-width: 600px;
+    cursor: pointer;
+    margin: 20px auto;
+  }
+  
+
+  .d-hover-icons { 
+    position: absolute;
+    top: 32%;
+    left: 12%;
+    display: flex;
+    display: table-column;
+    gap: 10px;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .product-item:hover .d-hover-icons {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+
+  .d-icon {
+    background-color: #666;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .d-icon:hover {
+    background-color: #ff8000;
+    color: #fff;
+  }
+  .product-item-image {
+    position: relative;
+    flex: 1;
+  }
+  
+  .d-products-container {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
+    justify-content: center;
+  
+  }
+
+  .product-item-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 130px;
+    background-color: orange;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .product-item-content {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .product-pricing {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 10px;
+  }
+  
+  .sale-price {
+    color: red;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  
+  .d-product-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .stock-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .sales-bar {
+    background-color: #f0f0f0;
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .sales-bar-progress {
+    background-color: orange;
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+  }
+  
+  .countdown {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .countdown-timer {
+    font-weight: bold;
+    color: orange;
+    font-size: 1.1rem;
+  }
+  
+
+  .slick-slider {
+    width: 100%;
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+  }
+  
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
+  
+
+  .d-h4{
+    font-size: 1.5rem;
+    text-align: left;
+  }
+
+  /* Add styles for responsive layout */
+  @media (max-width: 768px) {
+    .product-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center all items horizontally */
+      justify-content: center; /* Center all items vertically */
+      max-width: 100%;
+      padding: 10px;
+      text-align: center; /* Center text within each element */
+    }
+  
+    .product-item-image {
+      width: 80%; /* Full width for the image */
+      text-align: center;
+    }
+  
+    .product-item-image img {
+      width: 100%; /* Adjust image to fit container */
+      height: auto;
+    }
+  
+    .product-item-content {
+      padding: 15px;
+      text-align: center; /* Center text inside the content area */
+    }
+  
+    .product-name,
+    .product-description {
+      width: 100%; /* Ensure the text takes full width */
+      text-align: center; /* Center align product name and description */
+    }
+  
+    .d-hover-icons {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    .discount-badge {
+      left: 10px; /* Adjust position for mobile view */
+      font-size: 12px; /* Reduce size for smaller screens */
+    }
+  
+    .d-h4 {
+      font-size: 1.2rem; /* Adjust font size for headings */
+      text-align: center;
+    }
+  
+    .original-price {
+      font-size: 0.9rem;
+    }
+  
+    .sale-price {
+      font-size: 1.5rem;
+    }
+  
+    .stock-info {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .sales-bar {
+      margin: 5px auto;
+      width: 80%; /* Reduce width for smaller screens */
+    }
+  
+    .countdown-timer {
+      font-weight: bold;
+      color: orange;
+      font-size: 0.8rem;
+    }
+  }
+  

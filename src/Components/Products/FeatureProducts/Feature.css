@@ -1,0 +1,159 @@
+.feature-cate {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* Space between buttons */
+  margin: 20px 0;
+  width: 100%;
+}
+
+.category-item {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  /* Default color */
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.category-item:hover {
+  color: #ff8800;
+  /* Hover color */
+}
+
+category-item.active {
+  font-weight: bold;
+  color: #ff8800;
+  /* Active category color */
+}
+
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+
+
+
+
+.feature-cate {
+  display: flex;
+  gap: 20px;
+  /* Space between buttons */
+  margin: 20px 0;
+  overflow-x: auto;
+  /* Enable horizontal scrolling */
+  padding-bottom: 10px;
+  /* Space at the bottom for scrolling */
+  width: 100%;
+  /* scrollbar-width:none */
+}
+
+.category-item {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  /* Default color */
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+  white-space: nowrap;
+  /* Prevent text wrapping */
+}
+
+.category-item:hover {
+  color: #ff8800;
+  /* Hover color */
+}
+
+.category-item.active {
+  font-weight: bold;
+  color: #ff8800;
+  /* Active category color */
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+  .feature-cate {
+    justify-content: flex-start;
+    /* Align buttons to the start */
+
+    gap: 10px;
+    /* Reduce space between buttons */
+    padding: 0 10px;
+    /* Add padding to avoid edges */
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
+    max-width: calc(3 * 120px);
+    /* Limit width to show only 3 items */
+  }
+
+  .category-item {
+    font-size: 14px;
+    /* Slightly smaller font for smaller screens */
+  }
+
+  /* Add scroll behavior for phone devices */
+  .feature-cate::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar on mobile */
+  }
+
+  .feature-cate {
+    -ms-overflow-style: none;
+    /* For IE and Edge */
+    scrollbar-width: none;
+    /* For Firefox */
+  }
+}
+
+.category-item.active {
+  font-weight: bold;
+  color: #ff8800;
+  /* Blue color */
+  text-decoration: underline;
+  /* Adds underline */
+}
+
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  display: none !important;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  display: none !important;
+}
+
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  display: none !important;
+}
+
+.product-card.featureproduct-card {
+  width: 260px;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.products-container.yfeatureFlex {
+  padding: 2rem 0;
+  width: 90%;
+  margin-left: 5%;
+  justify-content: space-between;
+}
+
+.view-btn.yFeatureViewBtn {
+  border-radius: unset;
+  padding: 0.7rem 0;
+  font-size: 1rem;
+  color: white !important;
+}
