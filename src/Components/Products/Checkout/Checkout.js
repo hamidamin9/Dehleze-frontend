@@ -100,7 +100,7 @@ const Checkout = () => {
 
       toast.success("All orders placed successfully!");
       clearCart();
-      navigate("/thank-you");
+      navigate("/thankyouforshopping");
     } catch (error) {
       console.error("Error placing orders:", error);
       toast.error(

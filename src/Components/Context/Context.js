@@ -5,20 +5,24 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [user, setUser] = useState(null);
-  const [cart, setCart] = useState([]);
 
-  // Load user, userData, and cart from localStorage on mount
+  // ✅ Initialize cart from localStorage directly
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  console.log("Cart Item", cart);
+
+  // Load user and userData from localStorage on mount
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-
     if (storedUser) setUser(storedUser);
     if (storedUserData) setUserData(storedUserData);
-    setCart(storedCart);
   }, []);
 
-  // Save user and userData to localStorage when they change
+  // Save user to localStorage
   useEffect(() => {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
@@ -27,6 +31,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [user]);
 
+  // Save userData to localStorage
   useEffect(() => {
     if (userData) {
       localStorage.setItem("userData", JSON.stringify(userData));
@@ -35,7 +40,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [userData]);
 
-  // Save cart to localStorage when it changes
+  // Save cart to localStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
