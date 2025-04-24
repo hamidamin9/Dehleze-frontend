@@ -5,6 +5,8 @@ import { useUserContext } from "../Context/Context";
 import "./CSS/productDetails.css";
 import placeholderImage from "../Navbar/CSS/Assets/Banners/150x150.png";
 import ProductsPage from "./Product";
+import SingelPage2 from '../Yasir/pages/Singelpage2'
+
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -130,16 +132,16 @@ const ProductDetails = () => {
 
   return (
     <>
-      <div>
+      {/* <div>
         <img
           src="https://demo1.wpthemego.com/themes/sw_bosmarket/wp-content/uploads/2017/12/banner8.jpg"
           alt={product.name}
           style={{ width: "100%" }}
         />
-      </div>
-      <div className="product-details-container">
-        <div className="product-details">
-          <div>
+      </div> */}
+      <div >
+        <div >
+          {/* <div>
             <div className="product-images">
               <div className="thumbnail-container">
                 {product.images.map((img) => (
@@ -168,11 +170,11 @@ const ProductDetails = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="product-info">
-            <h1 className="product-name">{product.name}</h1>
-            <p className="productprice">
+          <div >
+            {/* <h1 className="product-name">{product.name}</h1> */}
+            {/* <p className="productprice">
               {" "}
               <del>PK{product.price} </del>{" "}
               <span style={{ color: "#177401", fontWeight: "bold" }}>
@@ -183,11 +185,11 @@ const ProductDetails = () => {
                   product.discount_percentage
                 )}
               </span>
-            </p>
+            </p> */}
 
-            <p className="product-description"> {product.description}</p>
+            {/* <p className="product-description"> {product.description}</p> */}
 
-            <div className="product-variations">
+            {/* <div className="product-variations">
               {variations.length > 0 ? (
                 variations
                   .filter((variation) => variation.pro_id === product.id)
@@ -221,9 +223,9 @@ const ProductDetails = () => {
               ) : (
                 <p>No variations available for this product.</p>
               )}
-            </div>
+            </div> */}
 
-            <div className="phone-responsive">
+            {/* <div className="phone-responsive">
               <p>
                 <strong>Category: </strong>{" "}
                 {getCategoryName(product.category_Id) ||
@@ -232,9 +234,9 @@ const ProductDetails = () => {
               <p>
                 <strong>Stock: </strong> {product.stock}
               </p>
-            </div>
+            </div> */}
             {/* Product quantity */}
-            <div className="quantity-control">
+            {/* <div className="quantity-control">
               <button className="quantity-btn" onClick={decrementQuantity}>
                 &ndash;
               </button>
@@ -247,9 +249,9 @@ const ProductDetails = () => {
               <button className="quantity-btn" onClick={incrementQuantity}>
                 +
               </button>
-            </div>
+            </div> */}
 
-            <div className="button-container">
+            {/* <div className="button-container">
               <button
                 className="buy-now-btn"
                 onClick={() => handleAddToCart(product)}
@@ -273,13 +275,14 @@ const ProductDetails = () => {
               >
                 Buy Now
               </button>
-            </div>
+            </div> */}
+            <SingelPage2/>
           </div>
         </div>
       </div>
 
       {/* Other sections */}
-      <div className="product-details-container">
+      {/* <div className="product-details-container">
         <div className="tabs">
           <button
             className={`tab-button ${
@@ -337,7 +340,7 @@ const ProductDetails = () => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
       {/* <div class="products-container-below-product">
         <h4> Related Products:</h4>
       </div>

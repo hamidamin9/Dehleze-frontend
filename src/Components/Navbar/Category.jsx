@@ -213,9 +213,9 @@ const CategoryBar = () => {
             <NavLink to="/" className="h-heading">
               Home
             </NavLink>
-            <NavLink to="/shop" className="h-heading">
+            {/* <NavLink to="/shop" className="h-heading">
               Shop
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/aboutus" className="h-heading">
               About
             </NavLink>
@@ -227,6 +227,7 @@ const CategoryBar = () => {
       </div>
     </div>
   );
+  
 };
 
 export default CategoryBar;

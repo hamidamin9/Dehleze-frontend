@@ -236,7 +236,7 @@ const ProductsPage = () => {
                   {product.name.split(" ").slice(0, 4).join(" ")}
                   {product.name.split(" ").length > 4 && "..."}
                 </p>
-                <p className="price-stock">
+                <p className="price-stock"> 
                   <span style={{ marginLeft: "23px" }}>
                     PKR {variations.price?.[0] || product.price}
                   </span>

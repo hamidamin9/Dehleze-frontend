@@ -6,7 +6,8 @@
 }
 
 .cart .cart-logo {
-  width: auto;
+  width: 80%;
+  height: 80%;
 }
 
 .d-flex {
