@@ -14,7 +14,7 @@ const Checkout = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [orderedItems, setOrderedItems] = useState([]);
 
-  // Initialize orderedItems from cart when cart is available
+// Initialize
   useEffect(() => {
     if (cart.length > 0) {
       setOrderedItems(cart.map((item) => ({ id: item.id, quantity: 1 })));
