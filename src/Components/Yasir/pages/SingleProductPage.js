@@ -30,14 +30,15 @@ const ProductDetails = () => {
   // Fetch product details and reviews
   useEffect(() => {
     fetch(`http://39.61.51.195:8004/product/${id}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        setProduct(data);
-        setSelectedImage(data.images[0]?.image);
-      })
-      .catch((error) =>
-        console.error("Error fetching product details:", error)
-      );
+    .then((response) => response.json())
+    .then((data) => {
+      setProduct(data);
+      console.log("products", data);
+      
+      // Use color_image if available, otherwise first image
+      setSelectedImage(data.color_image || data.images[0]?.image);
+    })
+    .catch((error) => console.error("Error fetching product details:", error));
 
     fetch(`http://39.61.51.195:8004/reviews/?product=${id}`)
       .then((response) => response.json())
@@ -55,6 +56,7 @@ const ProductDetails = () => {
       .then((response) => response.json())
       .then((data) => {
         setVariations(data);
+        console.log("variations",data)
         if (data.length > 0) {
           setSelectedColor(data[0].color); // Default to the first variation's color
           setDisplayedPrice(data[0].price); // Default price

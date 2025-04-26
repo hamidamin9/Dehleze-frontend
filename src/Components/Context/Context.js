@@ -3,35 +3,24 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState(null);
-  const [user, setUser] = useState(null);
+  // ✅ Load user data from localStorage on mount
+  const [userData, setUserData] = useState(() => {
+    const storedUser = localStorage.getItem("userData");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
-  // ✅ Initialize cart from localStorage directly
+  // ✅ Load cart from localStorage on mount
   const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
 
-  console.log("Cart Item", cart);
-
-  // Load user and userData from localStorage on mount
+  // ✅ Keep cart in sync with localStorage
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const storedUserData = JSON.parse(localStorage.getItem("userData"));
-    if (storedUser) setUser(storedUser);
-    if (storedUserData) setUserData(storedUserData);
-  }, []);
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
-  // Save user to localStorage
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
-    }
-  }, [user]);
-
-  // Save userData to localStorage
+  // ✅ Keep user data in sync with localStorage
   useEffect(() => {
     if (userData) {
       localStorage.setItem("userData", JSON.stringify(userData));
@@ -40,11 +29,21 @@ export const UserProvider = ({ children }) => {
     }
   }, [userData]);
 
-  // Save cart to localStorage
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  // ✅ Login method
+  const login = (user) => {
+    setUserData(user);
+    localStorage.setItem("userData", JSON.stringify(user));
+  };
 
+  // ✅ Logout method
+  const logout = () => {
+    setUserData(null);
+    setCart([]);
+    localStorage.removeItem("userData");
+    localStorage.removeItem("cart");
+  };
+
+  // ✅ Add item to cart
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
@@ -59,22 +58,14 @@ export const UserProvider = ({ children }) => {
     });
   };
 
+  // ✅ Remove item from cart
   const removeFromCart = (id) => {
-    setCart((prevCart) => {
-      const updatedCart = prevCart.filter((item) => item.id !== id);
-      return updatedCart;
-    });
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  // ✅ Clear cart
   const clearCart = () => {
     setCart([]);
-  };
-
-  const logout = () => {
-    setUser(null);
-    setUserData(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("userData");
   };
 
   return (
@@ -82,13 +73,12 @@ export const UserProvider = ({ children }) => {
       value={{
         userData,
         setUserData,
-        user,
-        setUser,
+        login,
+        logout,
         cart,
         addToCart,
         removeFromCart,
         clearCart,
-        logout,
       }}
     >
       {children}

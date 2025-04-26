@@ -12,7 +12,7 @@ const Bestsellingproducts = () => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true); // Loading state
-
+    console.log("product",products)
     const location = useLocation();
     const { addToCart, cart } = useUserContext(); // Destructure addToCart and cart from context
     // quick view
@@ -33,6 +33,7 @@ const Bestsellingproducts = () => {
                 setProducts(data);
                 setFilteredProducts(data); // Initially display all products
                 setLoading(false); // Set loading to false after fetching
+                console.log(data)
             })
             .catch((error) => {
                 console.error("Error fetching products:", error);
@@ -194,6 +195,7 @@ const Bestsellingproducts = () => {
                         onHide={() => setShowQuickView(false)}
                         product={selectedProduct}
                     />
+                    
                 </div>
             </div>
         </>

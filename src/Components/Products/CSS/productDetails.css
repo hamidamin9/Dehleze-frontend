@@ -48,13 +48,14 @@ p {
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   height: auto;
+  
 }
 
 .main-image {
   width: 100%;
   height: auto;
   aspect-ratio: 3/2;
-  object-fit: contain;
+  object-fit: inherit;
 }
 
 .thumbnail-container {

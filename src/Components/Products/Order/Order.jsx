@@ -105,7 +105,7 @@ const CreateOrderPage = () => {
           <OrderForm
             name={name}
             setName={setName}
-            PhoneNumber={PhoneNumber}
+            PhoneNumber={PhoneNumber} 
             setPhoneNumber={setPhoneNumber}
             address={address}
             setAddress={setAddress}

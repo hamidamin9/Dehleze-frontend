@@ -195,6 +195,7 @@ const ProductsPage = () => {
               ? `http://39.61.51.195:8004${image}`
               : image;
 
+              //sku
             return (
               <div key={product.id} className="s-product-card">
                 <div className="s-product-image-container">

@@ -22,16 +22,25 @@
   cursor: pointer;
   /* border-radius: 10px; */
 }
-
 .slide-category-image {
   width: 100%;
-  height: 150px;
+  height: 150px; /* Fixed height (adjust as needed) */
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
   border-radius: 10px;
   border: 2px solid #ff8000;
-  /* padding: 5px; */
-  object-fit: contain;
   margin-bottom: 10px;
-  mix-blend-mode: multiply;
+}
+
+.slide-category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: inherit; /* Ensures image covers container (crops edges) */
+  object-position: center; /* Centers the image */
+  mix-blend-mode: multiply; /* Preserves blend effect */
 }
 
 .slide-category-link {
