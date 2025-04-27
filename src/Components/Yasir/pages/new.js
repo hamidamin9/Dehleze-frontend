@@ -58,7 +58,7 @@ const ProductList = () => {
           products.map((product) => (
             <div key={product.id} className="border p-4 rounded-xl shadow-md">
               <img
-                src={`http://39.61.51.195:8004${product.product_image}`}
+                src={`http://39.61.51.195:8004${product?.product_image}`}
                 alt={product.name}
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />

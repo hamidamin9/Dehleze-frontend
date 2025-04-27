@@ -136,7 +136,7 @@ const Bestsellingproducts = () => {
 
                                     <div className="product-image-container">
                                         <img
-                                            src={ product.product_image || placeholderImage || product.color_image?.[0]  ||  product.images?.[0]?.image}
+                                            src={ product?.product_image || placeholderImage || product.color_image?.[0]  ||  product.images?.[0]?.image}
                                             alt="product" className="product-image"
                                         />
                                         <div className="hover-icons">

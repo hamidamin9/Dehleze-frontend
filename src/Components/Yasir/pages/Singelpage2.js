@@ -1,33 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import ProductsPage from "../../Products/Product";
 import { useUserContext } from "../../Context/Context";
 import Footer from "../../Footer/Footer";
 import Bestsellingproducts from "../../Products/BestSellingProducts/Bestsellingproducts";
 import DailyDeals from "../../Products/DealyDeals/DailyDeals";
 import FooterTop from "../../Footer/FooterTop";
 import Categories from "../../Category/Category";
-import axios from "axios";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart, user, cart } = useUserContext();
+
   const [product, setProduct] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [variations, setVariations] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
   const [zoomStyle, setZoomStyle] = useState({});
-  const [categories, setCategories] = useState([]);
-  const [reviews, setReviews] = useState([]);
-  const [activeTab, setActiveTab] = useState("description");
-  const { addToCart, user, cart } = useUserContext();
-  const [quantity, setQuantity] = useState(1);
-  const [variations, setVariations] = useState([]);
   const [selectedColor, setSelectedColor] = useState(null);
   const [displayedPrice, setDisplayedPrice] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
-  const navigate = useNavigate();
-
-  // Fetch product details
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
@@ -38,28 +32,25 @@ const ProductDetails = () => {
         ]);
 
         if (!productRes.ok || !categoriesRes.ok || !variationsRes.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error("Failed to fetch data");
         }
 
         const productData = await productRes.json();
         const categoriesData = await categoriesRes.json();
         const variationsData = await variationsRes.json();
 
-        // Set product data
         setProduct(productData);
-        
-        // Set initial selected image
+        setCategories(categoriesData);
+        setVariations(variationsData);
+
         if (productData.color_image) {
-          setSelectedImage(productData.color_image  );
+          setSelectedImage(productData.color_image);
+        } else if (productData.product_image) {
+          setSelectedImage(productData.product_image);
         } else if (productData.images && productData.images.length > 0) {
           setSelectedImage(productData.images[0].image);
         }
 
-        // Set categories
-        setCategories(categoriesData);
-
-        // Set variations
-        setVariations(variationsData);
         if (variationsData.length > 0) {
           setSelectedColor(variationsData[0].color);
           setDisplayedPrice(variationsData[0].price);
@@ -89,7 +80,9 @@ const ProductDetails = () => {
     setZoomStyle({});
   };
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = () => {
+    if (!product) return;
+
     const alreadyInCart = cart.some((item) => item.id === product.id);
 
     if (alreadyInCart) {
@@ -99,7 +92,7 @@ const ProductDetails = () => {
         ...product,
         quantity,
         selectedColor,
-        price: displayedPrice || product.price
+        price: displayedPrice || product.price,
       });
       toast.success("Product added to cart successfully!");
     }
@@ -115,19 +108,8 @@ const ProductDetails = () => {
     return (numericPrice - discountAmount).toFixed(2);
   };
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
-
-  const getCategoryName = (categoryId) => {
-    const category = categories.find((cat) => cat.category_id === categoryId);
-    return category ? category.name : "Category Not Found";
-  };
-
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
-  const decrementQuantity = () => {
-    if (quantity > 1) setQuantity((prev) => prev - 1);
-  };
+  const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1));
 
   const handleColorClick = (color) => {
     setSelectedColor(color);
@@ -139,9 +121,11 @@ const ProductDetails = () => {
     }
   };
 
-  if (!product) return <div className="loading">Loading...</div>;
+  if (!product) {
+    return <div className="loading">Loading...</div>;
+  }
 
-  const uniqueColors = [...new Set(variations.map(v => v.color))];
+  const uniqueColors = [...new Set(variations.map((v) => v.color))];
 
   return (
     <>
@@ -151,21 +135,23 @@ const ProductDetails = () => {
             <div className="yextra">
               <div className="product-images">
                 <div className="thumbnail-container">
+                  {/* Color Image */}
                   {product.color_image && (
                     <img
                       src={product.color_image}
-                      alt={`${product.name} thumbnail`}
+                      alt="Color Thumbnail"
                       className={`thumbnail ${
                         selectedImage === product.color_image ? "selected" : ""
                       }`}
                       onClick={() => setSelectedImage(product.color_image)}
                     />
                   )}
+                  {/* Other Images */}
                   {product.images?.map((img, index) => (
                     <img
                       key={index}
                       src={img.image}
-                      alt={`${product.name} thumbnail`}
+                      alt={`Thumbnail ${index}`}
                       className={`thumbnail ${
                         selectedImage === img.image ? "selected" : ""
                       }`}
@@ -173,6 +159,7 @@ const ProductDetails = () => {
                     />
                   ))}
                 </div>
+
                 <div
                   className="main-image-container"
                   onMouseMove={handleMouseMove}
@@ -187,6 +174,7 @@ const ProductDetails = () => {
                   />
                 </div>
               </div>
+
               <div className="product-info">
                 <h1 className="product-name">{product.name}</h1>
 
@@ -195,49 +183,36 @@ const ProductDetails = () => {
                     <img src="/images/singleproductpageimages/star.png" alt="" />
                     <p>4.3/5(91) - {product.stock}</p>
                   </div>
-                  <div className="ySinglePagePriceFlexContent">
-                    <img src="/images/singleproductpageimages/star.png" alt="" />
-                    <p>94%</p>
-                  </div>
-                  <div className="ySinglePagePriceFlexContent">
-                    <img src="/images/singleproductpageimages/star.png" alt="" />
-                    <p>8</p>
-                  </div>
                 </div>
 
                 <p className="productprice">
-                  <div>
-                    <span
-                      style={{
-                        color: "rgba(0, 0, 0, 1)",
-                        fontSize: "16.96px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Rs{" "}
-                      {displayedPrice
-                        ? calculateDiscountedPrice(
-                            displayedPrice,
-                            product.discount_percentage
-                          )
-                        : calculateDiscountedPrice(
-                            product.price,
-                            product.discount_percentage
-                          )}
-                    </span>
-                    &nbsp; &nbsp;
-                    <del
-                      style={{
-                        color: "rgba(177, 177, 177, 1)",
-                        fontSize: "15.08px",
-                      }}
-                    >
-                      Rs {displayedPrice || product.price}
-                    </del>
-                  </div>
-                  <div>
-                    <img src="/images/singleproductpageimages/info.png" alt="" />
-                  </div>
+                  <span
+                    style={{
+                      color: "rgba(0, 0, 0, 1)",
+                      fontSize: "16.96px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Rs{" "}
+                    {displayedPrice
+                      ? calculateDiscountedPrice(
+                          displayedPrice,
+                          product.discount_percentage
+                        )
+                      : calculateDiscountedPrice(
+                          product.price,
+                          product.discount_percentage
+                        )}
+                  </span>
+                  &nbsp;&nbsp;
+                  <del
+                    style={{
+                      color: "rgba(177, 177, 177, 1)",
+                      fontSize: "15.08px",
+                    }}
+                  >
+                    Rs {displayedPrice || product.price}
+                  </del>
                 </p>
 
                 <div className="quantity-control">
@@ -255,7 +230,8 @@ const ProductDetails = () => {
                   </button>
                 </div>
 
-                {variations.length > 0 && (
+                {/* Colors */}
+                {uniqueColors.length > 0 && (
                   <div className="ySinglePageColor">
                     <p>Colors</p>
                     <div>
@@ -282,10 +258,7 @@ const ProductDetails = () => {
                 )}
 
                 <div className="button-container">
-                  <button
-                    className="buy-now-btn"
-                    onClick={() => handleAddToCart(product)}
-                  >
+                  <button className="buy-now-btn" onClick={handleAddToCart}>
                     Add to Cart
                   </button>
                   <button
@@ -297,7 +270,7 @@ const ProductDetails = () => {
                             ...product,
                             selectedColor,
                             quantity,
-                            price: displayedPrice || product.price
+                            price: displayedPrice || product.price,
                           },
                           discountedPrice: calculateDiscountedPrice(
                             displayedPrice || product.price,
@@ -312,61 +285,11 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="ySinglePageLast">
-              <div className="ySinglePageLastBoxFlex">
-                <div className="ySinglePageLastContent">
-                  <div className="yImageDiv">
-                    <img
-                      src="/images/singleproductpageimages/Shuttle.png"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <p>Free Delivery</p>
-                    <span>From $99</span>
-                  </div>
-                </div>
-                <div className="ySinglePageLastContent">
-                  <div className="yImageDiv">
-                    <img
-                      src="/images/singleproductpageimages/Money.png"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <p>Free Delivery</p>
-                    <span>From $99</span>
-                  </div>
-                </div>
-              </div>
-              <div className="ySinglePageLastInfo">
-                <span>Sold by</span>
-                <p>{product.seller_id}</p>
-                <div className="ySinglePageLastSellerInfo">
-                  <div className="ySinglePageLastSellerInfoFlex">
-                    <div className="ySinglePageLastSellerInfoFlexContent">
-                      <span>Positive Seller Ratings</span>
-                      <p>85%</p>
-                    </div>
-                    <div className="ySinglePageLastSellerInfoFlexContent">
-                      <span>Ship on Time</span>
-                      <p>50%</p>
-                    </div>
-                    <div className="ySinglePageLastSellerInfoFlexContent">
-                      <span>Chat Response Rate</span>
-                      <p>65%</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
+          {/* Mobile Add to Cart */}
           <div className="button-container Addtocartformobile">
-            <button
-              className="buy-now-btn"
-              onClick={() => handleAddToCart(product)}
-            >
+            <button className="buy-now-btn" onClick={handleAddToCart}>
               Add to Cart
             </button>
             <button
@@ -378,7 +301,7 @@ const ProductDetails = () => {
                       ...product,
                       selectedColor,
                       quantity,
-                      price: displayedPrice || product.price
+                      price: displayedPrice || product.price,
                     },
                     discountedPrice: calculateDiscountedPrice(
                       displayedPrice || product.price,
@@ -393,18 +316,22 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
       <div className="cate-heading" style={{ marginBottom: "3rem" }}>
-        <h2 className="">Popular Categories</h2>
+        <h2>Popular Categories</h2>
       </div>
       <Categories />
+
       <div className="cate-heading" style={{ marginBottom: "3rem" }}>
-        <h2 className="">Best selling products</h2>
+        <h2>Best selling products</h2>
       </div>
       <Bestsellingproducts />
+
       <div className="cate-heading" style={{ marginBottom: "3rem" }}>
-        <h2 className="">Daily Deals</h2>
+        <h2>Daily Deals</h2>
       </div>
       <DailyDeals />
+
       <FooterTop />
       <Footer />
       <ToastContainer />

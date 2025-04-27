@@ -188,7 +188,7 @@ const ProductsPage = () => {
             const variations = product.variations || {};
             const image =
               variations.color_image?.[0] ||
-              product.product_image ||
+              product?.product_image ||
               placeholderImage;
 
             const imageUrl = image.startsWith("/media")

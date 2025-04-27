@@ -98,9 +98,9 @@ const ProductsPage = () => {
 
   // 👉 A function to decide correct image URL
   const getProductImage = (product) => {
-    return product.color_image ||
-           product.product_image ||
-           (product.images && product.images[0]?.image) ||
+    return product?.color_image ||
+           product?.product_image ||
+           (product?.images && product?.images[0]?.image) ||
            placeholderImage;
   };
 

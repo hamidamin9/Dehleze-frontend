@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "./CSS/Categories.css";
 
+// Move the function here
+const getCategoryImage = (category) => {
+  return category?.image || category?.image?.[0];
+};
+
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   console.log("Categories:", categories);
@@ -13,12 +18,6 @@ const Categories = () => {
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
-
-  const getCategorie = (category) => {
-    return category.image ||
-           category.image ||
-           (category.images && category.images[0]?.image) 
-  };
 
   // React slider settings
   const settings = {
@@ -67,7 +66,7 @@ const Categories = () => {
               className="slide-category-link"
             >
               <img
-                src={getCategorie(category)}
+                src={getCategoryImage(category)} // <- use the function here
                 alt={category?.name || "Category Image"}
                 className="slide-category-image"
                 style={{ display: "block" }}
