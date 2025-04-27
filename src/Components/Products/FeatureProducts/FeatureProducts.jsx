@@ -13,7 +13,7 @@ const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [activeCategory, setActiveCategory] = useState(null); // Track active category
+  const [activeCategory, setActiveCategory] = useState(null);
   const placeholderImage = "https://via.placeholder.com/150";
   const { addToCart, cart } = useUserContext();
 
@@ -73,7 +73,7 @@ const ProductsPage = () => {
   }, []);
 
   const filterByCategory = (categoryId) => {
-    setActiveCategory(categoryId); // Set active category
+    setActiveCategory(categoryId);
     if (categoryId === null) {
       setFilteredProducts(products);
     } else {
@@ -85,7 +85,7 @@ const ProductsPage = () => {
   };
 
   const calculateDiscountedPrice = (price) => {
-    return (price * 0.95).toFixed(2); // 5% discount
+    return (price * 0.95).toFixed(2);
   };
 
   const capitalizeWords = (string) => {
@@ -96,9 +96,16 @@ const ProductsPage = () => {
       .join(" ");
   };
 
+  // 👉 A function to decide correct image URL
+  const getProductImage = (product) => {
+    return product.color_image ||
+           product.product_image ||
+           (product.images && product.images[0]?.image) ||
+           placeholderImage;
+  };
+
   return (
     <>
-      {/* Categories */}
       <Swiper
         spaceBetween={10}
         slidesPerView={6}
@@ -109,9 +116,7 @@ const ProductsPage = () => {
         <SwiperSlide>
           <button
             onClick={() => filterByCategory(null)}
-            className={`category-item ${
-              activeCategory === null ? "active" : ""
-            }`}
+            className={`category-item ${activeCategory === null ? "active" : ""}`}
           >
             All
           </button>
@@ -130,7 +135,6 @@ const ProductsPage = () => {
         ))}
       </Swiper>
 
-      {/* Product List */}
       <div
         className="products-container mt-3"
         style={{ margin: "0", backgroundColor: "rgb(240 238 238)" }}
@@ -138,19 +142,22 @@ const ProductsPage = () => {
         {filteredProducts.length > 0 ? (
           <div className="products-container yfeatureFlex">
             {filteredProducts
-              .filter((product) => product.feature_product == "Normal") // Exclude products with feature_product "Normal"
+              .filter((product) => product.feature_product === "Normal")
               .map((product) => (
                 <div
                   key={product.id}
                   className="product-card featureproduct-card"
                 >
-                  <div className="discount-product-badge">-5%</div>
+                  <div className="discount-product-badge">
+                    {product?.discount_percentage}
+                  </div>
 
                   <div className="product-image-container">
                     <img
-                      src={product.images[0]?.image || placeholderImage}
+                      src={getProductImage(product)}
                       alt={product.name}
                       className="product-image"
+                      onError={(e) => { e.target.src = placeholderImage; }}
                     />
                     <div className="hover-icons">
                       <div className="icon">
@@ -160,10 +167,7 @@ const ProductsPage = () => {
                         className="icon"
                         onClick={() => handleAddToCart(product)}
                       >
-                        <i
-                          className="fa fa-shopping-cart"
-                          aria-hidden="true"
-                        ></i>
+                        <i className="fa fa-shopping-cart" aria-hidden="true"></i>
                       </div>
                       <div
                         className="icon"
@@ -173,17 +177,11 @@ const ProductsPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div
-                    className="p-title"
-                    style={{ textAlign: "center", justifyContent: "center" }}
-                  >
-                    <h4 className="h4-title">
-                      {capitalizeWords(product.name)}
-                    </h4>
+
+                  <div className="p-title" style={{ textAlign: "center", justifyContent: "center" }}>
+                    <h4 className="h4-title">{capitalizeWords(product.name)}</h4>
                   </div>
-                  {/* <div>
-                    <h5>{product.feature_product || "not feature"}</h5>
-                  </div> */}
+
                   <p style={{ color: "#ff4444" }}>
                     <del>PK{product.price}</del>
                     <span> PK{calculateDiscountedPrice(product.price)}</span>
@@ -204,6 +202,8 @@ const ProductsPage = () => {
           </div>
         )}
       </div>
+
+      <ToastContainer />
     </>
   );
 };

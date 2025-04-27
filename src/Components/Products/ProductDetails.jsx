@@ -30,11 +30,8 @@ const ProductDetails = () => {
       .then((response) => response.json())
       .then((data) => {
         setProduct(data);
-        setSelectedImage(data.images[0]?.image);
         console.log("Product data:", data);
-        console.log("Selected image:", data.images[0]?.image);
-        console.log("Product ID:", data.id);
-        console.log("Product name:", data.name);
+        setSelectedImage(data.images[0]?.image);
       })
       .catch((error) =>
         console.error("Error fetching product details:", error)

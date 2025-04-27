@@ -76,6 +76,7 @@ const Bestsellingproducts = () => {
             });
             return;
         }
+        console.log("product", product.color_image)
 
         // Check if the product already exists in the cart
         const exists = cart.some((item) => item.id === product.id);
@@ -135,7 +136,7 @@ const Bestsellingproducts = () => {
 
                                     <div className="product-image-container">
                                         <img
-                                            src={product.color_image || placeholderImage}
+                                            src={ product.product_image || placeholderImage || product.color_image?.[0]  ||  product.images?.[0]?.image}
                                             alt="product" className="product-image"
                                         />
                                         <div className="hover-icons">

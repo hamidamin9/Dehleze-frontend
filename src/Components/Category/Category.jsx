@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "./CSS/Categories.css";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  console.log("Categories:", categories);
 
   useEffect(() => {
     fetch("http://39.61.51.195:8004/account/category/")
@@ -13,8 +14,14 @@ const Categories = () => {
       .catch((error) => console.error("Error fetching categories:", error));
   }, []);
 
-  // react slider
-  var settings = {
+  const getCategorie = (category) => {
+    return category.image ||
+           category.image ||
+           (category.images && category.images[0]?.image) 
+  };
+
+  // React slider settings
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -51,24 +58,20 @@ const Categories = () => {
 
   return (
     <>
-      {/* react slider */}
+      {/* React slider */}
       <Slider {...settings}>
         {categories.map((category) => (
-          <div className="slide-category-card">
+          <div key={category.category_id} className="slide-category-card">
             <Link
-              key={category.category_id}
               to={`/products?category=${category.category_id}`}
               className="slide-category-link"
             >
               <img
-                src={category.image}
-                alt={category.name}
+                src={getCategorie(category)}
+                alt={category?.name || "Category Image"}
                 className="slide-category-image"
-                style={{
-                  display: "ruby",
-                }}
+                style={{ display: "block" }}
               />
-
               <p className="slide-category-name">{category.name}</p>
             </Link>
           </div>
