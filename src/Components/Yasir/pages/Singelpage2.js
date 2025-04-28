@@ -28,7 +28,7 @@ const ProductDetails = () => {
         const [productRes, categoriesRes, variationsRes] = await Promise.all([
           fetch(`http://39.61.51.195:8004/product/${id}/`),
           fetch("http://39.61.51.195:8004/account/category/"),
-          fetch(`http://39.61.51.195:8004/productvariation/?pro_id=${id}`)
+          fetch(`http://39.61.51.195:8004/productvariation/?pro_id=${id}`),
         ]);
 
         if (!productRes.ok || !categoriesRes.ok || !variationsRes.ok) {
@@ -41,15 +41,23 @@ const ProductDetails = () => {
 
         setProduct(productData);
         setCategories(categoriesData);
-        setVariations(variationsData);
 
-        const initialImage = productData.color_image || productData.product_image || (productData.images?.[0]?.image ?? "");
+        const filteredVariations = variationsData.filter(
+          (variation) => variation.pro_id === productData.id
+        );
+        setVariations(filteredVariations);
+
+        const initialImage =
+          productData.color_image ||
+          productData.product_image ||
+          (productData.images?.[0]?.image ?? "");
         setSelectedImage(initialImage);
 
-        if (variationsData.length > 0) {
-          setSelectedColor(variationsData[0].color);
-          setDisplayedPrice(variationsData[0].price);
-        }
+        // ✅ Important: Always show product price when page loads
+        setDisplayedPrice(productData.price);
+
+        // Select color only if user clicks later
+        setSelectedColor(null);
       } catch (error) {
         console.error("Error fetching product details:", error);
         toast.error("Failed to load product details");
@@ -66,7 +74,7 @@ const ProductDetails = () => {
     setZoomStyle({
       backgroundImage: `url(${selectedImage})`,
       backgroundPosition: `${x}% ${y}%`,
-      backgroundSize: "200%"
+      backgroundSize: "200%",
     });
   };
 
@@ -74,7 +82,7 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     if (!product) return;
-    const alreadyInCart = cart.some(item => item.id === product.id);
+    const alreadyInCart = cart.some((item) => item.id === product.id);
     if (alreadyInCart) {
       toast.info("Product is already in the cart!");
     } else {
@@ -82,7 +90,7 @@ const ProductDetails = () => {
         ...product,
         quantity,
         selectedColor,
-        price: displayedPrice || product.price
+        price: displayedPrice || product.price,
       });
       toast.success("Product added to cart successfully!");
     }
@@ -98,16 +106,34 @@ const ProductDetails = () => {
     return (numericPrice - discountAmount).toFixed(2);
   };
 
-  const incrementQuantity = () => setQuantity(prev => prev + 1);
+  const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () => {
-    if (quantity > 1) setQuantity(prev => prev - 1);
+    if (quantity > 1) setQuantity((prev) => prev - 1);
   };
 
   const handleColorClick = (color) => {
     setSelectedColor(color);
-    const variation = variations.find(v => v.color === color);
+    const variation = variations.find((v) => v.color === color);
     if (variation) {
       setDisplayedPrice(variation.price);
+      if (variation.color_image) {
+        setSelectedImage(variation.color_image);
+      }
+    }
+  };
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+
+    const matchingVariation = variations.find(
+      (v) => v.color_image === imageUrl
+    );
+
+    if (matchingVariation) {
+      setSelectedColor(matchingVariation.color);
+      setDisplayedPrice(matchingVariation.price);
+    } else {
+      setDisplayedPrice(product.price);
     }
   };
 
@@ -115,8 +141,11 @@ const ProductDetails = () => {
     return <div className="loading">Loading...</div>;
   }
 
-  const uniqueColors = [...new Set(variations.map(v => v.color))];
-  const discountedPrice = calculateDiscountedPrice(displayedPrice || product.price, product.discount_percentage);
+  const uniqueColors = [...new Set(variations.map((v) => v.color))];
+  const discountedPrice = calculateDiscountedPrice(
+    displayedPrice || product.price,
+    product.discount_percentage
+  );
 
   return (
     <>
@@ -127,34 +156,38 @@ const ProductDetails = () => {
               {/* Image Section */}
               <div className="product-images">
                 <div className="thumbnail-container">
-                  {/* Show color_image thumbnail if exists */}
                   {product.color_image && (
                     <img
                       src={product.color_image}
                       alt="Color Variant"
-                      className={`thumbnail ${selectedImage === product.color_image ? "selected" : ""}`}
-                      onClick={() => setSelectedImage(product.color_image)}
+                      className={`thumbnail ${
+                        selectedImage === product.color_image ? "selected" : ""
+                      }`}
+                      onClick={() => handleImageClick(product.color_image)}
                     />
                   )}
-
-                  {/* Show product_image thumbnail if it exists and different */}
-                  {product.product_image && product.product_image !== product.color_image && (
-                    <img
-                      src={product.product_image}
-                      alt="Product Image"
-                      className={`thumbnail ${selectedImage === product.product_image ? "selected" : ""}`}
-                      onClick={() => setSelectedImage(product.product_image)}
-                    />
-                  )}
-
-                  {/* Show other images */}
+                  {product.product_image &&
+                    product.product_image !== product.color_image && (
+                      <img
+                        src={product.product_image}
+                        alt="Product Image"
+                        className={`thumbnail ${
+                          selectedImage === product.product_image
+                            ? "selected"
+                            : ""
+                        }`}
+                        onClick={() => handleImageClick(product.product_image)}
+                      />
+                    )}
                   {product.images?.map((img, idx) => (
                     <img
                       key={idx}
                       src={img.image}
                       alt={`Thumbnail ${idx + 1}`}
-                      className={`thumbnail ${selectedImage === img.image ? "selected" : ""}`}
-                      onClick={() => setSelectedImage(img.image)}
+                      className={`thumbnail ${
+                        selectedImage === img.image ? "selected" : ""
+                      }`}
+                      onClick={() => handleImageClick(img.image)}
                     />
                   ))}
                 </div>
@@ -178,10 +211,12 @@ const ProductDetails = () => {
               <div className="product-info">
                 <h1 className="product-name">{product.name}</h1>
 
-                {/* Rating and Stock Info */}
                 <div className="ySinglePagePriceFlex">
                   <div className="ySinglePagePriceFlexContent">
-                    <img src="/images/singleproductpageimages/star.png" alt="" />
+                    <img
+                      src="/images/singleproductpageimages/star.png"
+                      alt=""
+                    />
                     <p>4.3/5 (91) - {product.stock}</p>
                   </div>
                 </div>
@@ -190,14 +225,25 @@ const ProductDetails = () => {
                 <div className="productprice">
                   <span className="discounted-price">Rs {discountedPrice}</span>
                   &nbsp;
-                  <del className="original-price">Rs {displayedPrice || product.price}</del>
+                  <del className="original-price">
+                    Rs {displayedPrice || product.price}
+                  </del>
                 </div>
 
                 {/* Quantity Control */}
                 <div className="quantity-control">
-                  <button className="quantity-btn" onClick={decrementQuantity}>−</button>
-                  <input type="text" className="quantity-input" value={quantity} readOnly />
-                  <button className="quantity-btn" onClick={incrementQuantity}>+</button>
+                  <button className="quantity-btn" onClick={decrementQuantity}>
+                    −
+                  </button>
+                  <input
+                    type="text"
+                    className="quantity-input"
+                    value={quantity}
+                    readOnly
+                  />
+                  <button className="quantity-btn" onClick={incrementQuantity}>
+                    +
+                  </button>
                 </div>
 
                 {/* Color Variations */}
@@ -205,7 +251,7 @@ const ProductDetails = () => {
                   <div className="ySinglePageColor">
                     <p>Colors</p>
                     <div>
-                      {uniqueColors.map(color => (
+                      {uniqueColors.map((color) => (
                         <button
                           key={color}
                           style={{
@@ -213,9 +259,12 @@ const ProductDetails = () => {
                             width: "20px",
                             height: "20px",
                             borderRadius: "50%",
-                            border: selectedColor === color ? "3px solid #FF8000" : "1px solid gray",
+                            border:
+                              selectedColor === color
+                                ? "3px solid #FF8000"
+                                : "1px solid gray",
                             marginRight: "10px",
-                            cursor: "pointer"
+                            cursor: "pointer",
                           }}
                           onClick={() => handleColorClick(color)}
                         />
@@ -226,7 +275,9 @@ const ProductDetails = () => {
 
                 {/* Buttons */}
                 <div className="button-container">
-                  <button className="buy-now-btn" onClick={handleAddToCart}>Add to Cart</button>
+                  <button className="buy-now-btn" onClick={handleAddToCart}>
+                    Add to Cart
+                  </button>
                   <button
                     className="buy-now-btn"
                     onClick={() =>
@@ -236,10 +287,10 @@ const ProductDetails = () => {
                             ...product,
                             selectedColor,
                             quantity,
-                            price: displayedPrice || product.price
+                            price: displayedPrice || product.price,
                           },
-                          discountedPrice
-                        }
+                          discountedPrice,
+                        },
                       })
                     }
                   >
@@ -254,7 +305,10 @@ const ProductDetails = () => {
               <div className="ySinglePageLastBoxFlex">
                 <div className="ySinglePageLastContent">
                   <div className="yImageDiv">
-                    <img src="/images/singleproductpageimages/Shuttle.png" alt="" />
+                    <img
+                      src="/images/singleproductpageimages/Shuttle.png"
+                      alt=""
+                    />
                   </div>
                   <div>
                     <p>Free Delivery</p>
@@ -264,7 +318,10 @@ const ProductDetails = () => {
 
                 <div className="ySinglePageLastContent">
                   <div className="yImageDiv">
-                    <img src="/images/singleproductpageimages/Money.png" alt="" />
+                    <img
+                      src="/images/singleproductpageimages/Money.png"
+                      alt=""
+                    />
                   </div>
                   <div>
                     <p>Cash on Delivery</p>
@@ -282,7 +339,9 @@ const ProductDetails = () => {
 
           {/* Mobile Buttons */}
           <div className="button-container Addtocartformobile">
-            <button className="buy-now-btn" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="buy-now-btn" onClick={handleAddToCart}>
+              Add to Cart
+            </button>
             <button
               className="buy-now-btn"
               onClick={() =>
@@ -292,10 +351,10 @@ const ProductDetails = () => {
                       ...product,
                       selectedColor,
                       quantity,
-                      price: displayedPrice || product.price
+                      price: displayedPrice || product.price,
                     },
-                    discountedPrice
-                  }
+                    discountedPrice,
+                  },
                 })
               }
             >
@@ -329,3 +388,4 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+ 
