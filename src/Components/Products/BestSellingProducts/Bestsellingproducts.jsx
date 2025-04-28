@@ -157,7 +157,7 @@ const Bestsellingproducts = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <p style={{ color: "black", fontWeight: "bold", textOverflow: "ellipsis", overflow: "hidden", marginBottom: "0px", marginTop: "5px", padding: "5px" }}>
+                                    <p style={{ color: "black", fontWeight: "15px", textOverflow: "ellipsis", overflow: "hidden", marginBottom: "0px", marginTop: "5px", padding: "5px" }}>
                                         <span className="h4-title">
                                             {capitalizeWords(product.name)}
                                         </span>

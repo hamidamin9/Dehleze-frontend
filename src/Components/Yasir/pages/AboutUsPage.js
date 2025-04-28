@@ -5,6 +5,7 @@ import ContactPageSwiper from '../components/ContactPageSwiper'
 import ContactPageNewsLetter from '../components/ContactPageNewsLetter'
 import YaboutUsGallery from '../components/YaboutUsGallery'
 import YaboutUsTeam from '../components/YaboutUsTeam'
+import Footer from '../../Footer/Footer'
 
 function AboutUsPage() {
     return (
@@ -32,6 +33,7 @@ function AboutUsPage() {
                 {/* <ContactPageSwiper /> */}
                 {/* <ContactPageNewsLetter /> */}
             </div>
+            <Footer/>
         </>
     )
 }

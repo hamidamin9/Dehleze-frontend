@@ -137,7 +137,7 @@ const ProductsPage = () => {
 
       <div
         className="products-container mt-3"
-        style={{ margin: "0", backgroundColor: "rgb(240 238 238)" }}
+        style={{ margin: "0" }}
       >
         {filteredProducts.length > 0 ? (
           <div className="products-container yfeatureFlex">

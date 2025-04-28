@@ -156,11 +156,11 @@ const DailyDeals = () => {
     <>
       <div className="daily-deals" >
         <div className="">
-          <div id="d-products-container" className="d-products-container" style={{backgroundColor:"#c2c7cf"}} >
+          <div id="d-products-container" className="d-products-container" style={{backgroundColor:"rgb(240 238 238)"}} >
             <Slider {...settings}>
               {products.map((product, index) => (
                 <div id="d-products-container" className="d-products-container">
-                  <div key={product.id} className="product-item" style={{backgroundColor:"#c2c7cf"}} >
+                  <div key={product.id} className="product-item" style={{backgroundColor:"rgb(240 238 238)"}} >
                     <div className="product-item-image">
                       <div className="d-hover-icons">
                         <div className="p-2">
@@ -180,7 +180,7 @@ const DailyDeals = () => {
                         </div>
                       </div>
                       <div className="discount-badge">-{product.discount}%</div>
-                      <img src={product.image} alt={product.title} />
+                      <img src={product.image} alt={product.title}  />
                     </div>
                     <div className="product-item-content">
                       <h4 className="d-h4">{product.title}</h4>
